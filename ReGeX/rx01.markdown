@@ -1,0 +1,157 @@
+## Python Regular Expression Quick Guide
+
+  * ^        Matches the beginning of a line
+
+  * $        Matches the end of the line
+
+  * .        Matches any character
+
+  * \s       Matches whitespace
+
+  * \S       Matches any non-whitespace character
+
+  * "*"        Repeats a character zero or more times
+
+  * *?       Repeats a character zero or more times (non-greedy)
+
+  * "+"        Repeats a character one or more times
+
+  * +?       Repeats a character one or more times (non-greedy)
+
+  * [aeiou]  Matches a single character in the listed set
+
+  * [^XYZ]   Matches a single character not in the listed set
+
+  * [a-z0-9] The set of characters can include a range
+
+  * (        Indicates where string extraction is to start
+
+  * )        Indicates where string extraction is to end
+
+  *  \ 			 with any character forces it to search for the character after it (even if it's part of the Regex cheatlist)
+
+```
+MK coding :
+```python
+```
+
+
+## Examples
+
+### Search for lines that contain 'From'
+```python
+  import re
+  hand = open('mbox-short.txt')
+  for line in hand:
+    line = line.rstrip()
+    if re.search('From:', line): #there is from in the line
+      print(line)
+```
+### Search for lines that start with 'From'
+
+```python
+    import re
+    hand = open('mbox-short.txt')
+    for line in hand:
+        line = line.rstrip()
+        if re.search('^From:', line): #line starts with From!
+            print(line)
+```
+### Matching and extracting data
+re.search() finds and tell us if it's True of False. While re.findall() actually gathers what we asked and extracts it.
+* for instance: [0-9]+ -> means: anything with numbers between 0 and 9[0-9] that Repeats itself 1 or more times (+)
+```python
+	import re
+  	text = "My 2 favorite desserts in the menu are numbers 12 and 43"
+  	extract = re.findall('[0-9}+',text)
+  	print(extract)
+```
+Answer will be:  ['2', '12', '43]'
+
+### Greedy matching warning
++ and * searches for everything and tries to give you all strings that matches it.
+For instance:
+```python
+import re
+x = 'From: Using the : character'
+y = re.findall('^F.+:',x)
+print(y)
+```
+Answer will be: ['From: Using the :']
+It happens because of its greedy effect. The Re find and shows us everything that fits the designed code, therefore It starts with F and ends with : (first and last). We can tell it to STOP in the first (:) with a NON-GREEDY character called ?
+
+Changing the code, it will look like this:
+```python
+import re
+x = 'From: Using the : character'
+y = re.findall('^F.+?:',x)
+print(y)
+```
+Answer will be: ['From:']
+
+### Fine-Tuning String extraction
+Selecting an interval or a better answer from the code is always a good way to gather only what you need.
+In order to do that, you can use the following code:
+
+```python
+import re
+text = "From ballonigomes@gmail.com 08/11/2020 14:26:19"
+extract = re.findall('\S+@\S+',text)
+#(Selects any character that it's not null and have @ (at) right after and finish when it reaches the next whitespace)
+print(extract)
+```
+The answer will be: 'ballonigomes@gmail.com'
+
+Another way to do it, is to help the Re to find what you need by using parentheses to tell where to extract and when to STOP
+
+```python
+import re
+text = "From ballonigomes@gmail.com 08/11/2020 14:26:19"
+extract = re.findall('^From (\S+@\S+)',text)
+#( Every line that starts with From, Selects any character that it's between the parentheses command)
+print(extract)
+```
+
+### Dual Split Pattern
+* Doing **without** Regex
+
+```python
+import re
+text = "From ballonigomes@gmail.com 08/11/2020 14:26:19"
+words = text.split()
+email = words[1]
+pieces = email.split("@")
+print(pieces[1])
+```
+* Doing **with** REGEX
+```python
+import re
+text = "From ballonigomes@gmail.com 08/11/2020 14:26:19"
+extract = re.findall('@([^ ]*)')
+# second option is to say:  "^From .*@([^ ]*)"   # starts with From, gets everything after @ and stop when starts a space
+#find what starts with @ and extracts any character(*) everything except what is inside the brackets [^ ] (everything but SPACE! in this case)
+```
+### Catching something specific
+
+```python
+import re
+file = open(mbox.txt)
+numlist = []
+for line in file:
+	line = line.rstrip()
+	wdata = re.findall('X-DSPAM Confidence: ([0-9.]+)',line) #find what starts with X-DSPAM Confidence and begin to extract everything with numbers 1 or more times.
+	if len(wdata) != 1: continue # here i'm telling the command to ignore anything that has more than 1 set of numbers in the DSPAM (which means that could be an error in the gathered data)
+	num = float(wdata[0]) #prepare the number to append
+	numlist.append(num) #ADD it to the list created above
+print("Max Confidence:", max(numlist))
+```
+### Escape Character (\)
+Allows us to insert an illegal string in the text
+
+```python
+import re
+text = "We just received $10.00 for cookies."
+extract = re.findall("\$[0-9.]+",text)
+print(extract)
+```
+gives us: "$10.00"
