@@ -2,8 +2,8 @@
 
 ### **1. O que é Linguagem estruturada de Consulta** - *Structured Query Language (SQL)?*
 
-SQL é uma linguagem de consulta utilizada para tratar, elaborar, consultar e alterar banco de dados relacionais (tabular). De sintaxe simples e acessível, SQL se tornou uma linguagem comum à todos os que trabalham na área e aos que precisam extrair, transformar e carregar (ETL) algum tipo de dado em bancos estruturados. 
-	
+SQL é uma linguagem de consulta utilizada para tratar, elaborar, consultar e alterar banco de dados relacionais (tabular). De sintaxe simples e acessível, SQL se tornou uma linguagem comum aos que trabalham com data, banco de dados, desenvolvimento de softwares, etc e aos que, ocasionamente, precisam extrair, transformar e carregar (ETL) algum tipo de dado em bancos estruturados, contudo não exercem uma função na área. 
+
 ### **2. Estrutura do SQL:**
 
   * *Data Definiton Language* (DDL)
@@ -16,24 +16,24 @@ SQL é uma linguagem de consulta utilizada para tratar, elaborar, consultar e al
   	Conceder e revogar permissões de acesso à diferentes usuários, e;
   * *Data Transaction Language* (DTL)
   	Gerenciar alterações por DML e permite agrupar as declarações em transações lógicas.
-  	
-  	
+
+
 ### **2.1 Linguagem de definção de dados (DDL)**
 
-Subconjunto de SQL que compõe os comandos de criação e manutenção dos objetos do BD. Por exemplo: Esquemas, tabelas, índices, chaves, colunas, visões, restrições de integridade. 
-	
-	
+Subconjunto de SQL que compõe os comandos de criação e manutenção dos objetos do BD. Por exemplo: Esquemas, tabelas, índices, chaves, colunas, visões, restrições de integridade.
+
+
 Comando | Função
 ------------------------ | -------------------------
 CREATE *objeto* | Criar objetos (tabelas, por exemplo) no BD
-ALTER *objeto* | Alterar a estrutura ou configuração de um objeto no BD 
+ALTER *objeto* | Alterar a estrutura ou configuração de um objeto no BD
 DROP *objeto* | Excluir um objeto no BD
 
 
 Esses são os principais objetos do DDL, dado as variantes entre fabricantes de SBGDs.
 * Principais objetos: DATABASE, TABLE, INDEX, CONSTRAINT (PRIMARY KEY, FOREIGN KEY, UNIQUE KEY), ROLE, USER, PROCEDURE, FUNCTION, TRIGGER and VIEW.   
 
-	OBS para etapa abaixo: 
+	OBS para etapa abaixo:
 1. **Criação de BD:**
 	CREATE **OBJETO** **NOME_DE_OBJETO;** (<restrição_da_coluna>)- Objeto = DATABASE, por exemplo
 2. **Exclusão de BD:**
@@ -69,19 +69,19 @@ OBS: drop database elimina TODO o DB e seus objetos (CUIDADO). Not build in func
 
 10. **CREATE VIEW** <nome_da_view> AS <comando_DQL_para_criar_visão>;
 DROP VIEW <nome_da_view>;
-FAcilita acesso as visões 
+FAcilita acesso as visões
 
 
 ### **2.2 Linguagem de Manipulação de dados (DML)**
 
 Subconjunto do SQL que trata de operações de manipulação de dados que inclui (INSERT), altera (UPDATE) e deleta (DELETE).
-	
+
 1. **Inclusão ou inserção de dados:**
 
 
--	INSERT INTO nome_tabela (<lista_atributos>) 
+-	INSERT INTO nome_tabela (<lista_atributos>)
 	VALUES (lista_valores_atributos) (lista_valores_atributos)
-	
+
 2. **Alteração de dados:**
 
 -	UPDATE nome_tabela
@@ -93,8 +93,8 @@ Subconjunto do SQL que trata de operações de manipulação de dados que inclui
 
 -	DELETE FROM nome_tabela
 	WHERE conditional
-	
-	
+
+
 ### **2.3 Linguagem de consulta de dados (DQL)**
 
 Compõe o subconjunto do SQL que realiza a leitura dos da tabela avaliada. É composta por SELECT (selecionar todos os dados ou parte dele), FROM (localização no banco de dados)
@@ -102,7 +102,7 @@ Compõe o subconjunto do SQL que realiza a leitura dos da tabela avaliada. É co
 1. **Seleção geral ou específica:**
 Seleciona todos ou parte do conjunto de dados/colunas de uma tabela.
 
--	 SELECT * FROM nome_banco.nome_tabela ou 
+-	 SELECT * FROM nome_banco.nome_tabela ou
 
 -	SELECT coluna1, coluna2 FROM nome_banco.nome_tabela
 
@@ -128,7 +128,7 @@ Seleciona uma parte dos dados que estão ou não dentro do especificado(=, >, <,
 5. **Seleção por filtro de valor nulo:**
 Seleciona uma parte dos dados que estão ou não dentro do especificado (Nulo ou não nulo)
 
--	SELECT coluna1... FROM nome_tabela WHERE coluna1 IS NULL; 
+-	SELECT coluna1... FROM nome_tabela WHERE coluna1 IS NULL;
 
 -	SELECT coluna1... FROM nome_tabela WHERE coluna1 IS NOT NULL;
 
@@ -167,7 +167,7 @@ Exemplo: SELECT colunas FROM tabela ou lista de tabelas WHERE coluna operador su
 
 -	SELECT * FROM tabela1 WHERE col1 IN (SELECT DISTINCT col2 FROM tabela2
 
-#### **2.3.2 Junções, mesclas ou acréscimos** 
+#### **2.3.2 Junções, mesclas ou acréscimos**
 
 Junções *joins* são consultas usadas para recuperar dados de várias tabelas em apenas uma consulta. Operadores *joins* utilizam duas relações e retornam outra relação como resultado. Para isso, faz-se uso do chaves estrangeiras ou *FOREIGN KEY*.
 
@@ -184,7 +184,7 @@ Retorna os registros que existem na tabela da direita e os que a intersectam na 
 4. **FULL JOIN ou FULL OUTER JOIN:**
 Retorna todos os registros das tabelas esquerda e direita (indiferente se há intersecção)
 
--	SELECT * FROM tabela 1 LEFT JOIN tabela 2 ON tabela1.coluna1 = tabela2.coluna2 
+-	SELECT * FROM tabela 1 LEFT JOIN tabela 2 ON tabela1.coluna1 = tabela2.coluna2
 
 
 ### **2.4 Linguagem de controle de acesso a dados (DCL)**
@@ -233,32 +233,3 @@ REVOKE GRANT OPTION FOR lista de privilégios ON objeto FROM usuário/roles REST
 * REVOKE DELETE FROM 'read_write' (remove de role)
 * REVOKE 'read' FROM user3
 * REVOKE INSERT, UPDATE, DELETE ON database.* FROM user1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
